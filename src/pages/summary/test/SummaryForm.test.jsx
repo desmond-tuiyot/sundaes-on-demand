@@ -1,5 +1,6 @@
 import SummaryForm from "../SummaryForm";
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
+import userEvent  from "@testing-library/user-event";
 
 // TODO: test to check that checkbox is initially unchecked
 // TODO: test to check that button is initially disabled
@@ -18,12 +19,12 @@ test("checking checkbox enables button and unchecking it disables button", () =>
   expect(confirmButton).toBeDisabled();
 
   // clicking checkbox enables button
-  fireEvent.click(checkbox);
+  userEvent.click(checkbox);
   expect(checkbox).toBeChecked();
   expect(confirmButton).toBeEnabled();
 
   // clicking checkbox again disables button
-  fireEvent.click(checkbox);
+  userEvent.click(checkbox);
   expect(checkbox).not.toBeChecked();
   expect(confirmButton).toBeDisabled();
 });
