@@ -2,7 +2,7 @@ import Options from "./Options";
 import { useOrderDetails } from "../../contexts/OrderDetails";
 
 const OrderEntry = () => {
-  let [{ totals }, _] = useOrderDetails();
+  let [{ totals }] = useOrderDetails();
   return (
     <div>
       <Options optionType="scoops" />
