@@ -4,15 +4,9 @@ import Button from "react-bootstrap/Button";
 import Popover from "react-bootstrap/Popover";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 
-// const Example = () => (
-//   <OverlayTrigger trigger="click" placement="right" overlay={popover}>
-//     <Button variant="success">Click me to see</Button>
-//   </OverlayTrigger>
-// );
-
-export default function SummaryForm() {
+export default function SummaryForm({ changePhase }) {
   const [tcChecked, setTcChecked] = useState(false);
-
+  // console.log(updateOrderConfirmation);
   const popover = (
     <Popover id="popover-basic">
       <Popover.Content>No ice cream will actually be delivered</Popover.Content>
@@ -29,7 +23,11 @@ export default function SummaryForm() {
   );
 
   return (
-    <Form>
+    <Form
+      onSubmit={(event) => {
+        event.preventDefault();
+      }}
+    >
       <Form.Group controlId="terms-and-conditions">
         <Form.Check
           type="checkbox"
@@ -38,7 +36,14 @@ export default function SummaryForm() {
           label={checkboxLabel}
         />
       </Form.Group>
-      <Button variant="primary" type="submit" disabled={!tcChecked}>
+      <Button
+        variant="primary"
+        type="submit"
+        disabled={!tcChecked}
+        onClick={() => {
+          changePhase("complete");
+        }}
+      >
         Confirm order
       </Button>
     </Form>

@@ -27,18 +27,25 @@ function calculateSubtotal(optionType, optionCounts) {
   return optionCount * pricePerItem[optionType];
 }
 
-const OrderDetailsProvider = (props) => {
-  const [optionCounts, setOptionsCount] = useState({
-    scoops: new Map(),
-    toppings: new Map(),
-  });
+const initialOptionCounts = {
+  scoops: new Map(),
+  toppings: new Map(),
+};
 
+const initialTotals = () => {
   const zeroCurrency = formatCurrency(0);
-  const [totals, setTotals] = useState({
+  return {
     scoops: zeroCurrency,
     toppings: zeroCurrency,
     grandTotal: zeroCurrency,
-  });
+  };
+};
+
+const OrderDetailsProvider = (props) => {
+  const [optionCounts, setOptionsCount] = useState(initialOptionCounts);
+
+  const [totals, setTotals] = useState(initialTotals);
+
   useEffect(() => {
     const scoopsSubtotal = calculateSubtotal("scoops", optionCounts);
     const toppingsSubtotal = calculateSubtotal("toppings", optionCounts);
@@ -61,9 +68,14 @@ const OrderDetailsProvider = (props) => {
       setOptionsCount(newOptionsCount);
     }
 
+    function resetOrder() {
+      setOptionsCount(initialOptionCounts);
+      setTotals(initialTotals);
+    }
+
     // getter: object containing option ounts for scoops and toppings, subtotals, and totals
     // setter: update optioncount
-    return [{ ...optionCounts, totals }, updateItemCount];
+    return [{ ...optionCounts, totals }, updateItemCount, resetOrder];
   }, [optionCounts, totals]);
   return <OrderDetails.Provider value={value} {...props} />;
 };

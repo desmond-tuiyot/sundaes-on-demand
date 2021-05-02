@@ -6,11 +6,6 @@ import {
 } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
-// TODO: test to check that checkbox is initially unchecked
-// TODO: test to check that button is initially disabled
-// TODO: test to ensure that checking checkbox enables button
-// TODO: test to ensure that unchecking checkbox disables button
-
 test("checking checkbox enables button and unchecking it disables button", () => {
   render(<SummaryForm />);
   const checkbox = screen.getByRole("checkbox", {
